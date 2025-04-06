@@ -1,33 +1,76 @@
-# VueMap
+# VueMap - Interactive Map Application
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue.js application with an interactive map interface, built with modern web technologies and Docker support.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Interactive SVG map with clickable regions
+- Vue.js 3 with TypeScript support
+- Docker containerization
+- Nginx for production serving
+- Responsive design
+- State management with Pinia
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue.js 3.5.13
+- TypeScript 5.8.0
+- Vite 6.2.1
+- Pinia for state management
+- Docker with Nginx
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
 
-## Project Setup
+- Node.js 18 or higher
+- Docker
 
-```sh
+### Development
+
+1. Install dependencies:
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+2. Run development server:
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Docker Deployment
 
-```sh
-npm run build
+1. Build the Docker image:
+```bash
+docker build -t vuemap .
 ```
+
+2. Run the container:
+```bash
+docker run -d -p 8080:80 --name vuemap vuemap
+```
+
+The application will be available at http://localhost:8080
+
+## Project Structure
+
+```
+/src
+  /assets      - Static assets and SVG maps
+  /components  - Vue components
+  /router      - Route definitions
+  /stores      - Pinia stores
+  /views       - Page components
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
