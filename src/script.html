@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG Map Processor</title>
+</head>
+<body>
+  <h2>SVG Map Processor</h2>
+  <p>Select your map.svg file to add the required class to all paths:</p>
+  <input type="file" id="fileInput">
+  <button onclick="processSvg()">Process SVG</button>
+  <a id="downloadLink" style="display:none">Download modified SVG</a>
+  
+  <script>
+    function processSvg() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert('Please select a file');
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parser = new DOMParser();
+          const svg = parser.parseFromString(e.target.result, "image/svg+xml");
+          
+          // Check if parsing was successful
+          const parserError = svg.querySelector('parsererror');
+          if (parserError) {
+            throw new Error('Error parsing SVG file');
+          }
+          
+          // Add class and id to all paths
+          const paths = svg.querySelectorAll('path');
+          console.log(`Found ${paths.length} paths in the SVG`);
+          
+          paths.forEach((path, index) => {
+            path.setAttribute('class', 'country-path');
+            if (!path.hasAttribute('id')) {
+              path.setAttribute('id', `region${index + 1}`);
+            }
+          });
+          
+          // Convert back to string and download
+          const serializer = new XMLSerializer();
+          const svgString = serializer.serializeToString(svg);
+          
+          const blob = new Blob([svgString], {type: 'image/svg+xml'});
+          const url = URL.createObjectURL(blob);
+          
+          const link = document.getElementById('downloadLink');
+          link.href = url;
+          link.download = 'modified-map.svg';
+          link.textContent = 'Download Modified SVG';
+          link.style.display = 'block';
+          
+          console.log('SVG processing complete');
+        } catch (error) {
+          console.error('Error processing SVG:', error);
+          alert('Error processing SVG: ' + error.message);
+        }
+      };
+      
+      reader.onerror = function(e) {
+        console.error('Error reading file:', e);
+        alert('Error reading file');
+      };
+      
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
