@@ -10,6 +10,7 @@ A Vue.js application with an interactive map interface, built with modern web te
 - Nginx for production serving
 - Responsive design
 - State management with Pinia
+- Automated Docker builds via GitHub Actions
 
 ## Tech Stack
 
@@ -40,6 +41,16 @@ npm run dev
 
 ### Docker Deployment
 
+#### Using Pre-built Image
+
+Pull and run the latest image from GitHub Container Registry:
+```bash
+docker pull ghcr.io/erikgjacobsen/nceapp:latest
+docker run -d -p 8080:80 --name vuemap ghcr.io/erikgjacobsen/nceapp:latest
+```
+
+#### Building Locally
+
 1. Build the Docker image:
 ```bash
 docker build -t vuemap .
@@ -51,6 +62,14 @@ docker run -d -p 8080:80 --name vuemap vuemap
 ```
 
 The application will be available at http://localhost:8080
+
+## Docker Tags
+
+The following tags are available on the GitHub Container Registry:
+- `latest`: Latest stable version from the main branch
+- `vX.Y.Z`: Specific version releases
+- `main`: Latest build from the main branch
+- `sha-XXXXXXX`: Specific commit builds
 
 ## Project Structure
 
